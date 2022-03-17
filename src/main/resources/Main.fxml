@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.canvas.Canvas?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.SeparatorMenuItem?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.FlowPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane minHeight="720" minWidth="1280" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="bfst20.presentation.ViewController">
+   <MenuBar fx:id="menuBar" prefHeight="25.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+       <menus>
+            <Menu fx:id="mainMenu" text="File">
+                <items>
+                    <MenuItem fx:id="openFile" onAction="#load" text="Open" />
+                <SeparatorMenuItem />
+                    <MenuItem text="Exit" />
+                </items>
+            </Menu>
+            <Menu mnemonicParsing="false" text="Color Scheme">
+               <items>
+                   <MenuItem mnemonicParsing="false" onAction="#normalColorButton" text="Normal Colors" />
+                   <MenuItem mnemonicParsing="false" onAction="#colorBlindButton" text="Invert Mode" />
+               </items>
+            </Menu>
+       </menus>
+   </MenuBar>
+<HBox fx:id="hbox" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0">
+      <children>
+         <AnchorPane maxWidth="400.0" minWidth="400.0" prefWidth="400.0" HBox.hgrow="ALWAYS">
+            <children>
+               <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <children>
+                   <!-- Pane for both the searching of addresses and routing-->
+                     <TabPane tabClosingPolicy="UNAVAILABLE" tabMaxHeight="30.0" tabMaxWidth="330.0" VBox.vgrow="ALWAYS">
+                       <tabs>
+                         <Tab text="Search">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0">
+                                    <children>
+                                              <!-- VBox for address-finding elements-->
+                                        <VBox fx:id="addressVBox" prefHeight="692.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                          <children>
+                                             <HBox alignment="TOP_RIGHT" prefHeight="47.0" prefWidth="330.0" spacing="3.0">
+                                                <children>
+                                                   <TextField fx:id="searchAddress" prefHeight="47.0" prefWidth="359.0" promptText="SEARCH HERE" />
+                                                   <Button fx:id="searchAdressButton" mnemonicParsing="false" prefHeight="47.0" prefWidth="148.0" text="Search" />
+                                                </children>
+                                             </HBox>
+                                             <VBox fx:id="suggestionsList" prefHeight="0.0" prefWidth="100.0" />
+                                              <!-- Scrollpane to contain suggestions for addresses-->
+                                             <ScrollPane fitToWidth="true" pannable="true" style="-fx-background: #17181f; -fx-border-color: #17181f;" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                               <content>
+                                                   <FlowPane fx:id="displayPane2" hgap="50.0" prefWidth="330" style="-fx-background-color: white;" />
+                                               </content>
+                                             </ScrollPane>
+                                          </children>
+                                       </VBox>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+      
+                         <Tab text="Route">
+                           <content>
+                             <AnchorPane minHeight="0.0" minWidth="0.0">
+                                 <children>
+                                     <!-- VBox for routing elements-->
+                                     <VBox fx:id="routeVBox" prefHeight="692.0" prefWidth="330.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                         <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                             <children>
+                                               <VBox prefHeight="77.0" prefWidth="276.0">
+                                                  <children>
+
+                                                      <TextField fx:id="searchbar" prefHeight="48.0" prefWidth="330.0" promptText="Insert address" />
+                                                      <TextField fx:id="destinationBar" prefHeight="48.0" prefWidth="330.0" promptText="Insert destination" />
+
+                                                  </children>
+                                               </VBox>
+                                               <Button fx:id="searchRouteButton" mnemonicParsing="false" prefHeight="96.0" prefWidth="55.0" text="Search" />
+                                             </children>
+                                         </HBox>
+                                         <HBox alignment="TOP_CENTER" prefHeight="20.0" prefWidth="330" spacing="5.0">
+                                             <RadioButton mnemonicParsing="false" prefWidth="45.0" selected="true" text="Car" userData="car">
+                                                <HBox.margin>
+                                                   <Insets right="10.0" />
+                                                </HBox.margin>
+                                                <toggleGroup>
+                                                   <ToggleGroup fx:id="type" />
+                                                </toggleGroup>
+                                             </RadioButton>
+                                             <RadioButton mnemonicParsing="false" text="Bicycle" toggleGroup="$type" userData="bicycle">
+                                                <HBox.margin>
+                                                   <Insets left="10.0" />
+                                                </HBox.margin>
+                                             </RadioButton>
+                                             <padding>
+                                                <Insets left="33.0" />
+                                             </padding>
+                                         </HBox>
+                                            <!-- Scrollpane to contain directions-->
+                                           <ScrollPane fitToWidth="true" layoutX="14.0" layoutY="22.0" pannable="true" prefWidth="330.0" style="-fx-background: #17181f; -fx-border-color: #17181f;" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                               <content>
+                                                   <FlowPane fx:id="displayPane" hgap="50.0" prefWidth="1600" style="-fx-background-color: #17181f;" />
+                                              </content>
+                                           </ScrollPane>
+                                        </VBox>
+                                    </children>
+                                 </AnchorPane>
+                           </content>
+                         </Tab>
+      
+                           <Tab text="Waypoint">
+                              <content>
+                                 <AnchorPane minHeight="0.0" minWidth="0.0">
+                                    <children>
+                                        <!-- VBox for Waypoints elements-->
+                                       <VBox fx:id="waypointVBox" prefHeight="691.0" prefWidth="331.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-1.0" AnchorPane.topAnchor="0.0">
+                                          <children>
+                                                   <!-- Scrollpane to contain suggestions for addresses-->
+                                                   <ScrollPane fitToWidth="true" pannable="true" prefHeight="36.0" prefWidth="331.0" style="-fx-background: #17181f; -fx-border-color: #17181f;" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
+                                                      <content>
+                                                         <FlowPane fx:id="wayPointFlowPane" hgap="50.0" style="-fx-background-color: white;" />
+                                                      </content>
+                                                   </ScrollPane>
+                                               </children>
+                                           </VBox>
+                                       </children>
+                                   </AnchorPane>
+                               </content>
+                          </Tab>
+                       </tabs>
+                     </TabPane>
+                  </children>
+               </VBox>
+            </children>
+         </AnchorPane>
+         <AnchorPane fx:id="canvasParent" HBox.hgrow="ALWAYS">
+            <children>
+               <!--Map element, this is were the map is drawn upon -->
+               <Canvas fx:id="canvas" height="695.0" width="940.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+            </children>
+            <HBox.margin>
+               <Insets />
+            </HBox.margin>
+         </AnchorPane>
+      </children></HBox>
+    <Slider fx:id="zoomSlider" orientation="VERTICAL" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="10.0" />
+      <Label fx:id="mouseLocationLabel" prefHeight="17.0" prefWidth="150.0" style="-fx-background-color: white;" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0"> Hello </Label>
+</AnchorPane>

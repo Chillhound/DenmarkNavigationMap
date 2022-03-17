@@ -1,0 +1,74 @@
+plugins {
+    id 'java'
+
+    id 'application'
+
+    id 'jacoco'
+
+    id 'com.github.sherter.google-java-format' version '0.8'
+
+    id 'org.openjfx.javafxplugin' version '0.0.8'
+
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'org.openjfx:javafx-fxml:11.0.2'
+    compile 'org.openjfx:javafx-base:11.0.2'
+    compile 'org.openjfx:javafx-graphics:11.0.2:win'
+    compile 'org.openjfx:javafx-graphics:11.0.2:linux'
+    compile 'org.openjfx:javafx-graphics:11.0.2:mac'
+    // Use JUnit Jupiter Engine for testing.
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.1'
+    testRuntimeOnly 'org.mockito:mockito-core:3.0.0'
+    testCompileOnly 'org.mockito:mockito-core:3.0.0'
+    // Allow for JUnit 4 legacy
+    testCompileOnly 'junit:junit:4.12'
+
+
+
+}
+
+application {
+    mainClassName = 'bfst20.presentation.ViewController'
+    applicationDefaultJvmArgs = ["-Xmx8192m"]
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+mainClassName = application.mainClassName
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'bfst20.presentation.ViewController'
+    }
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
+
+task fatJar(type: Jar) {
+    from 'resources', {
+        into 'resources'
+    }
+    manifest {
+        attributes 'Main-Class': application.mainClassName
+    }
+    baseName = 'Program'
+    from {
+        configurations.compileClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    with jar
+}
